@@ -1,0 +1,103 @@
+---
+title: "`remark.js` presentation using **xaringan** R library"
+subtitle: "Subtitle"
+author: "@zgfabian"
+date: 2026-03-24
+categories: [web, R]
+tags: [Jekyll, xaringan, Rstat]
+output:
+  xaringan::moon_reader:
+    seal: false
+    self-contained: true
+    css: [default, rutgers, rutgers-fonts]
+    chakra: libs/remark-0.15.0.min.js
+    nature:
+      highlightLines: true
+      highlightStyle: zenburn
+      countIncrementalSlides: false
+---
+class: center, middle, inverse
+
+.left-column[![naruto](../../assets/img/etc/naruto-xaringan.jpg)]
+.right-column[
+# remark.js presentation using **xaringan** R library
+
+## .center[Made with Xaringan Rstat package]
+<br><br><br><br><br>
+
+
+.right[Zoltán Fábián]
+.right[2026-03-24]
+]
+
+---
+class: middle, inverse
+
+.float-right[The Xaringan R package is an extension of the **R Markdown** markup language. It allows you to create HTML5 presentations. **HTML5** presentations showed in web browsers, but they can also be exported to PDF format and viewed in a PDF reader. Work both online and offline. <img src="../../assets/img/etc/xaringan-logo.png" alt="xaringan-logo" style="float:left-column;height:100px;">Behind the scenes, Xaringan is powered by the **remark.js** JavaScript extension, which can be used on its own if you have sufficient knowledge of the JavaScript programming language. Xaringan “merely” makes things easier for those who are familiar with the R Markdown syntax and have some knowledge of web programming (CSS, HTML, JS).]
+
+---
+
+class: middle, inverse
+
+>*The name “xaringan” came from [Sharingan](http://naruto.wikia.com/wiki/Sharingan) in the Japanese manga and anime “Naruto.” The word was deliberately chosen to be difficult to pronounce for most people (unless you have watched the anime), because its author (me) loved the style very much, and was concerned that it would become too popular. The concern was somewhat naive, because the style is actually very customizable, and users started to contribute more themes to the package later.* - [Yihui Xie](https://bookdown.org/yihui/rmarkdown/xaringan.html), the principal author of Xaringan (and many more) R package
+<br><br><br>
+
+>*"The Sharingan is an ability that allows a ninja to copy, by mere sight, their opponents' techniques while gaining incredible reflexes and perceptive abilities."* - [Urban Dictionary](https://www.urbandictionary.com/define.php?term=The%20Sharingan)
+
+---
+class: middle, inverse
+
+## Some useful features of Xaringan
+
+- Based on Rmarkdown and require some html, css and optimally js knowledge
+--
+- online and offline presentations
+--
+- pdf output with other packages (e.g. `pagedown`) or with system tools ([See details here.](https://github.com/yihui/xaringan/wiki/Export-Slides-to-PDF))
+--
+- incremental rendering, revealing
+---
+class: middle, inverse
+
+- autoplay and countdown timer
+--
+- MathJax for displaying mathematical content
+
+  $$\sigma=\sqrt{\frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2)}$$
+
+--
+- presenter notes (by pressing `p`)
+
+???
+The above equation is Standard Deviation
+
+---
+class: middle, inverse
+
+# Advanced features
+
+- Highlight styles for code blocks via [highlight.js](https://github.com/gnab/remark/wiki/Configuration#highlighting). (cf. in YAML `highlightStyle`)
+- to create custom xaringan themes [`xaringanthemer`](https://cran.r-project.org/web/packages/xaringanthemer/vignettes/xaringanthemer.html) package is at your hand
+- and [`xaringanExtra`](https://pkg.garrickadenbuie.com/xaringanExtra/) package is for advanced effects and layouts
+- for more output formats, use [`xaringanBuilder`](https://github.com/jhelvy/xaringanBuilder). It can produce even gifs that everybody love (Not really.)
+
+---
+
+## Executable code chunks
+
+```{r, eval=TRUE, echo=FALSE}
+library(kableExtra)
+```
+
+```{r, eval=TRUE}
+kable(head(iris))
+```
+---
+
+### Further readings
+
+- Yihui Xie, J. J. Allaire, Garrett Grolemund. 2026-02-03. [R Markdown: The Definitive Guide](https://yihui.org/rmarkdown/). Boca Raton, Florida: Chapman & Hall/CRC.
+
+- Xie Y (2025). _xaringan: Presentation Ninja_.  doi:10.32614/CRAN.package.xaringan   <https://doi.org/10.32614/CRAN.package.xaringan>, R package version 0.31,  <https://CRAN.R-project.org/package=xaringan>.
+
+- Xie Y, Dervieux C, Riederer E (2020). [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook). Boca Raton, Florida: Chapman and Hall/CRC.

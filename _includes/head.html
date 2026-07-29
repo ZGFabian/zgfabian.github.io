@@ -11,12 +11,24 @@
   <!-- search -->
   <script src="https://unpkg.com/lunr/lunr.js"></script>
   <!-- mathjax.js -->
+  {%- if page.MathJax -%}
   <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
-  <!-- fonts -->
+  {%- endif -%}
+    <!-- Image Slider in HTML CSS Without JavaScript -->
+  {%- if page.slider -%}
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+  {%- endif -%}
+
+<!-- In your _includes/head.html or _layouts/default.html -->
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox.css">
+<script src="{{ site.baseurl }}/assets/js/lightbox.js"></script>
+<link rel="stylesheet" href="{{ '/assets/css/gallery.css' | relative_url }}">
+
+
+<!-- fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bellefair">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/override.css" />
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/fa/css/font-awesome.min.css" />
 </head>

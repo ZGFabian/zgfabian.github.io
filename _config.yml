@@ -32,6 +32,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-sitemap
 
 paginate: 5
 # paginate_path: "/page:num/"
@@ -50,7 +51,8 @@ permalink: /:year-:month-:day-:title
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
+exclude:
+  - _rmd/
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
@@ -61,3 +63,12 @@ permalink: /:year-:month-:day-:title
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+collections:
+  versek:
+    output: true
+    order:
+      - szabol-csigabiga.md
+      - arany-csaladi.md
+      - basic-concepts.md
+      - advanced-concepts.md

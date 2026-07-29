@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Xaringan presentation in a Jekyll site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="@zgfabian" />
+    <meta name="date" content="2026-03-23" />
+    <script src="xaringan-prez-old_files/header-attrs-2.30/header-attrs.js"></script>
+    <link href="xaringan-prez-old_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="xaringan-prez-old_files/remark-css-0.0.1/rutgers.css" rel="stylesheet" />
+    <link href="xaringan-prez-old_files/remark-css-0.0.1/rutgers-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: center, middle, inverse
+
+.left-column[![naruto](../../assets/img/etc/naruto-xaringan.jpg)]
+.right-column[
+# Xaringan in a Jekyll site
+
+## .center[Made with Xaringan Rstat package]
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+.right[Zoltán Fábián]
+.right[updated on 2026-03-23]
+]
+---
+class: inverse
+
+# Basics
+
+## What is Jekyll?
+
+[Jekyll](http://jekyllrb.com) is a static website generator. I use it for my personal website at [zgfabian.github.com](http://zgfabian.github.io).
+
+&lt;img src="../../assets/img/etc/jekyll-logo.jpg" alt="xaringan-logo" style="float:right;height:100px;"&gt;&lt;/br&gt;
+--
+
+## What is Xaringan?
+&lt;img src="../../assets/img/etc/xaringan-logo.png" alt="xaringan-logo" style="float:right;height:100px;"&gt;
+The `xaringan` R package is an R Markdown extension that is based on [remark.js](https://remarkjs.com) javascript library to generate HTML5 presentation. It's been developed by [Yihui Xie](https://yihui.org/en/).
+
+
+---
+class: middle, inverse
+
+
+&gt;*The name “xaringan” came from [Sharingan](http://naruto.wikia.com/wiki/Sharingan) in the Japanese manga and anime “Naruto.” The word was deliberately chosen to be difficult to pronounce for most people (unless you have watched the anime), because its author (me) loved the style very much, and was concerned that it would become too popular. The concern was somewhat naive, because the style is actually very customizable, and users started to contribute more themes to the package later.* - [Yihui Xie](https://bookdown.org/yihui/rmarkdown/xaringan.html), the author of Xaringan (and many more) R package
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&gt;*"The Sharingan is an ability that allows a ninja to copy, by mere sight, their opponents' techniques while gaining incredible reflexes and perceptive abilities."* - [Urban Dictionary](https://www.urbandictionary.com/define.php?term=The%20Sharingan)
+
+---
+# Xaringan overview
+
+
+``` r
+# install
+install.packages("xaringan")
+# list available theme (+font) names
+names(xaringan:::list_css())
+```
+
+## Some features of Xaringan
+
+- Based on Rmarkdown and require some html, css and optimally js knowledge
+- online and offline presentations
+- pdf output with other packages (e.g. `pagedown`) or system tools ([See details here.](https://github.com/yihui/xaringan/wiki/Export-Slides-to-PDF))
+- slide separator: `---`
+- incremental reveal separator: `--`
+- presenter notes separator: `???`
+
+---
+# Advanced features
+- Highlight styles for code blocks via [highlight.js](https://github.com/gnab/remark/wiki/Configuration#highlighting). (cf. in YAML `highlightStyle`)
+- to create custom xaringan themes [`xaringanthemer`](https://cran.r-project.org/web/packages/xaringanthemer/vignettes/xaringanthemer.html) package is at your hand
+- and [`xaringanExtra`](https://pkg.garrickadenbuie.com/xaringanExtra/) package is for advanced effects and layouts
+- for more output formats, use [`xaringanBuilder`](https://github.com/jhelvy/xaringanBuilder). It can produce even gifs that everybody love (Not really.)
+
+---
+# Configuration in Jekyll
+
+Xaringan presentations are [Rmarkdown]() files with [YAML](https://en.wikipedia.org/wiki/YAML) front-matter. I configured Jekyll to exclude them from rendering. Cf. Jekyll's `_config.yml`:
+
+```
+exclude:
+  - "*.Rmd"
+```
+
+We render Rmarkdown files to html output. By this setup jekyll will not have to deal directly with markdown files. One potential drawback is that you can not use liquid tags (such as `{{ site.baseurl }}`). You have to use only **Rmarkdown**, **html** and also pay attention to **YAML** syntax.
+
+---
+# Locate and pin your `remark.js`
+
+- `remark.js` is served from a locally project folder. (In my case on [`minimal-mistake` Jekyll theme](https://github.com/mmistakes/minimal-mistakes) it is `./assets/js/` folder)
+
+```
+output:
+  xaringan::moon_reader:
+    chakra: ../assets/js/remark-latest.min.js
+```
+
+Note: Mind your `remark.js` version. Xariangan provides a dedicated function, (`summon_remark`) to download the proper version of the `remark.js` script to your local disk, so you can render slides offline. You need to change the `chakra` argument of `moon_reader()` accordingly.
+
+
+``` r
+xaringan::summon_remark(version = "0.14.1", to = "assets/js/")
+```
+
+```yaml
+output:
+  xaringan::moon_reader:
+    seal: false
+    css: [default, rutgers, rutgers-fonts]
+    lib_dir: ../static/xaringan-prez/libs
+    chakra: ../../assets/js/remark-0.14.1.min.js # pinned version
+```
+
+---
+# Fine tuning
+
+Remember that in yaml front matter every paths are relative. More importantly `lib_dir:` relative to `rmarkdown::render`'s `input:` file's directory, while `chakra:` is relative to `output_dir`.
+
+an exampe: html header customization for proper favicon display should be specified in front-matter like this:
+
+```yaml
+output:
+  xaringan::moon_reader:
+    includes:
+      in_header: ../_includes/head/favicon-xaringan.html
+```
+
+and contents of `favicon-xaringan.html` would be:
+```html
+&lt;link rel="apple-touch-icon" sizes="180x180" href="../../assets/img/site/apple-touch-icon.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/site/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="../../assets/img/site/favicon-16x16.png"&gt;
+&lt;link rel="manifest" href="../../assets/img/site/site.webmanifest"&gt;
+&lt;link rel="mask-icon" href="../../assets/img/site/safari-pinned-tab.svg" color="#5bbad5"&gt;
+&lt;meta name="msapplication-TileColor" content="#da532c"&gt;
+&lt;meta name="theme-color" content="#ffffff"&gt;
+```
+---
+class: middle, center
+
+# Xaringan outside Rstudio?
+
+[Doom Emacs](https://github.com/hlissner/doom-emacs) + [Emacs Speaks Statistics](https://ess.r-project.org/) (ESS)) and Xaringan preview in [Surf](https://surf.suckless.org/) browser as an #rstat IDE
+
+![doom](../../assets/img/etc/emacs-xaringan.png)
+
+---
+# Further resources
+
+- [remarkjs.com - website](https://remarkjs.com/)
+- [xaringan in the Rmarkdown book](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+- [R Markdown Reference Guide]( https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+# Other presentation tools
+
+There are many alternatives to Xaringan. Some have rmd support. Just to mention some:
+- Beamer - good old LaTeX for boomers ☺️
+- Standalone remark.js - a complicated xaringan minus Rmarkdown
+- [Reveal.js](https://revealjs.com) - for js (and org-mode) gurus
+- Sozi, SVG-based zoom-in/out Prezi-like tool even in Inkscape or as standalone app.
+- LibreOffice Impress and MS Powerpoint for office suite addicts
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-0.15.0.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightLines": true,
+  "highlightStyle": "zenburn",
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

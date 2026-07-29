@@ -1,0 +1,18 @@
+<div class="gallery-grid" style="display: flex; flex-wrap: wrap;">
+  {% for item in site.data.gallery %}
+    <div class="gallery-item" style="margin: 10px; text-align: center;">
+
+      <!-- A 'data-title' fog megjelenni a Lightbox ablakban -->
+      <a href="{{ '/assets/images/gallery/full/' | append: item.image | relative_url }}"
+         data-lightbox="gallery"
+         data-title="<strong>{{ item.title }}</strong><br>{{ item.caption }}">
+
+        <img src="{{ '/assets/images/gallery/thumbs/' | append: item.image | relative_url }}"
+             alt="{{ item.title }}"
+             style="width: 250px; height: 180px; object-fit: cover; border-radius: 8px;">
+      </a>
+
+      <!-- Opcionális: Képaláírás a galéria oldalon is -->
+      <div class="thumb-caption" style="font-size: 0.9em; margin-top: 5px;">
+        {{ item.title }}
+      </div>

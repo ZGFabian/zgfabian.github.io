@@ -4,15 +4,8 @@ title: About
 permalink: /about/
 ---
 
-You may want find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+My name is Zoltán G. Fábián. Random rants about things I like. Either in Hungarian or Hunglish.
 
-Find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+[<img src="../assets/img/site/rants.png" width="250"/>](assets/img/site/rants.png)
 
-Source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+[<img src="../assets/img/site/blabla_av_white_bg.png" width="250"/>](../assets/img/site/blabla_av_orange.png)

@@ -19,11 +19,12 @@ galleries:
 
 {% include image-gallery.html folder="/assets/img/20-02-22-YF/" %}
 
-<!--- wsrv.nl/lichtenstein.jpg --->
+<!--- wsrv.nl/lichtenstein.jpg
 ![Lichtenstein](https://wsrv.nl/?url=wsrv.nl/lichtenstein.jpg&w=300&h=300)
 
-{% if page.galleries %}{% include image-gallery-index.html %}{% endif %}
 
+{% if page.galleries %}{% include image-gallery-index.html %}{% endif %}
+--->
 
 Bővebben:
  - [https://www.yonafriedman.org/](https://www.yonafriedman.org/)

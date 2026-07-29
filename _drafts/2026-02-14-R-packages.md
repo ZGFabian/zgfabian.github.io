@@ -20,15 +20,14 @@ Az adattudományi projekteknek öt fő szakaszát különböztette meg programoz
 6. Kommunikáció, prezentáció (communicate)
 
 
-
-![hadley-model]({{ '/assets/img/26-02-14-R-packages/hadley-model.png' |relative.url }})
-
 ![hadley-model]({{ site.baseurl }}/assets/img/26-02-14-R-packages/hadley-model.png)
 
 
 ## Importálás
 
-rio, haven, foreign, readxl
+readr: read_csv()
+
+rio: haven, foreign, readxl
 
 ## Tisztítás
 

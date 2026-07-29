@@ -91,3 +91,9 @@ input#search-input[type=text]:focus {
 .search {
     font-size: 25px;
 }
+
+img.verse-img {
+  float: right;
+  margin-left: 15px;
+  width: 200px;
+  }

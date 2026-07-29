@@ -4,6 +4,7 @@ categories: emacs
 tags: dired
 language: en
 layout: post
+last_updated: 2026-03-18
 ---
 
 `Dired (C-x d)` is a file manager in Emacs. My setup has the following features: dual-panes withd dwim (do what I mean), hide/show file attributes, display/hide dot files, all-the-icons theme.
